@@ -31,6 +31,46 @@ Similarly with the client code, the encoding and decoding is kept generic so all
 is update the structs so they are the same as on the client.
 
 
+# Adding New Packets
+
+There are a few pieces to this puzzle, but they are pretty straight forward I hope!
+
+Both the client and the server has a "Packet Type" enum. They must be ordered the same way and contain
+the same enums. This is how the client/server knows which type of packet is being sent/received
+
+Once you have added a new enum, you then define the data struct of the packet, this struct needs to exist and be identical in both server and client.
+
+That is it!
+
+On the client you can now create a new packet of the type you made and use the struct you made for it
+
+```odin
+// sending
+network.send_packet(network.Packet_Type.<your-new-packet-type>, network.Payload_<Your-New-Packet-Payload>{
+    a = 1,
+    b = 2,
+    ....
+})
+
+//parsing
+packets := network.get_packet_queue()
+
+for &packet in packets {
+    #partial switch packet.type {
+    case network.Packet_Type.<your-new-packet-type>:
+        data := network.parse_payload(packet, network.network.Payload_<Your-New-Packet-Payload>)
+        if data == nil {
+            continue
+        }
+
+        fmt.println(data.a, data.b)
+    }
+}
+
+```
+
+On the server
+
 # Implementation (client)
 
 Copy the `client/network` folder into your Odin project and you can now do the following. I left a very basic logger in there as well as it might be useful.
