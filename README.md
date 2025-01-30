@@ -86,7 +86,7 @@ Its a pretty simple structure, and if you needed to add or change it, it shouldn
 ========================================================================+=====================+
   1 2 3 4 5 6 7 8   1 2 3 4 5 6 7 8   1 2 3 4 5 6 7 8   1 2 3 4 5 6 7 8 | 1 2 3 4 5 6 7 8 * N |
 + - - - - - - - - + - - - - - - - - + - - - - - - - - + - - - - - - - - + - - - - - - - - - - +
-|     version     |   packet type   |    packet payload length (N)      |    data...          |
+|     version     |   packet type   |    packet payload length (N+4)    |    data...          |
 + - - - - - - - - + - - - - - - - - + - - - - - - - - + - - - - - - - - + - - - - - - - - - - +
         255               255                       65535                     2^(8*N) - 1
 ```
